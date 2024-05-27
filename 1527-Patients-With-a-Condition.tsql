@@ -3,3 +3,12 @@ Select *
 From Patients
 Where conditions like '% DIAB1%'
    or conditions like 'DIAB1%';
+   /*
+   SELECT * 
+FROM Patients
+WHERE conditions LIKE '% DIAB1%'
+UNION
+SELECT * 
+FROM Patients
+WHERE conditions LIKE 'DIAB1%';
+*/
