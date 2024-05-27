@@ -1,0 +1,36 @@
+/* Write your T-SQL query statement below */
+SELECT 
+    p.product_id,
+    ROUND(SUM(CAST(p.price AS FLOAT) * ISNULL(u.units, 0)) 
+    / ISNULL(SUM(u.units), 1), 2) AS average_price
+FROM 
+    Prices AS p
+LEFT JOIN 
+    UnitsSold AS u
+ON 
+    p.product_id = u.product_id 
+    AND u.purchase_date BETWEEN p.start_date AND p.end_date
+GROUP BY 
+    p.product_id;
+
+-- Using CTE
+/*WITH SalesData AS (
+    SELECT 
+        p.product_id,
+        CAST(p.price AS FLOAT) AS price,
+        ISNULL(u.units, 0) AS units
+    FROM 
+        Prices AS p
+    LEFT JOIN 
+        UnitsSold AS u
+    ON 
+        p.product_id = u.product_id
+        AND u.purchase_date BETWEEN p.start_date AND p.end_date
+)
+SELECT 
+    product_id,
+    COALESCE(ROUND(SUM(price * units) / NULLIF(SUM(units), 0), 2), 0) AS average_price
+FROM 
+    SalesData
+GROUP BY 
+    product_id;*/
