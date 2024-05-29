@@ -1,11 +1,11 @@
 /* Write your T-SQL query statement below */
 SELECT p.employee_id, p.name,
-COUNT(c.employee_id) as reports_count,
-ROUND(AVG(c.age * 1.0), 0) as average_age
-FROM 
-    Employees as p, Employees as c
-WHERE 
-    c.reports_to = p.employee_id 
+COUNT(c.employee_id) AS reports_count,
+ROUND(AVG(c.age * 1.0), 0) AS average_age
+FROM
+    Employees AS p, Employees AS c
+WHERE
+    c.reports_to = p.employee_id
 GROUP BY
     p.employee_id, p.name
 ORDER BY
