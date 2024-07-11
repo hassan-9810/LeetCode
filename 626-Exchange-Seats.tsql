@@ -1,0 +1,7 @@
+/* Write your T-SQL query statement below */
+SELECT id, ISNULL(
+\t\t\t\t\tCASE WHEN id % 2 = 1 THEN LEAD(student,1) OVER(ORDER BY id) 
+\t\t\t\t    ELSE LAG(student,1) OVER(ORDER BY id) END, 
+\t\t\t\t\tstudent
+\t\t\t\t  ) student
+FROM seat;
