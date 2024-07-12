@@ -1,0 +1,41 @@
+/* Write your T-SQL query statement below */
+SELECT TOP 1 X.id, COUNT(*) AS num
+FROM (
+    SELECT requester_id AS id
+    FROM RequestAccepted
+    UNION ALL
+    SELECT accepter_id AS id
+    FROM RequestAccepted
+) X
+GROUP BY X.id
+ORDER BY num DESC;
+
+/*
+WITH AllFriends AS (
+    SELECT requester_id AS user_id, accepter_id AS friend_id
+    FROM RequestAccepted
+    UNION
+    SELECT accepter_id AS user_id, requester_id AS friend_id
+    FROM RequestAccepted
+),
+DistinctFriends AS (
+    SELECT user_id, friend_id
+    FROM AllFriends
+    GROUP BY user_id, friend_id
+),
+FriendCounts AS (
+    SELECT user_id, COUNT(friend_id) AS num
+    FROM DistinctFriends
+    GROUP BY user_id
+),
+MaxFriends AS (
+    SELECT MAX(num) AS max_num
+    FROM FriendCounts
+)
+SELECT user_id AS id, num
+FROM FriendCounts
+WHERE num = (SELECT max_num FROM MaxFriends);
+*/
+
+
+
