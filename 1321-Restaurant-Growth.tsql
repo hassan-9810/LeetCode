@@ -1,0 +1,31 @@
+/* Write your T-SQL query statement below */
+WITH CustomerDailyTotals AS (
+    SELECT 
+        visited_on,
+        SUM(amount) AS daily_total
+    FROM 
+        Customer
+    GROUP BY 
+        visited_on
+),
+MovingAverages AS (
+    SELECT 
+        visited_on,
+        daily_total,
+        SUM(daily_total) OVER (ORDER BY visited_on ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS sum_amount,
+        COUNT(*) OVER (ORDER BY visited_on ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS cnt_days
+    FROM 
+        CustomerDailyTotals
+)
+SELECT 
+    visited_on,
+    sum_amount AS amount,
+    ROUND(sum_amount * 1.0 / cnt_days, 2) AS average_amount
+FROM 
+    MovingAverages
+WHERE 
+    cnt_days = 7
+ORDER BY 
+    visited_on;
+
+
