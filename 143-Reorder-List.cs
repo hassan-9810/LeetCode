@@ -11,14 +11,16 @@
  */
 public class Solution {
     public void ReorderList(ListNode head) {
-        if (head == null || head.next == null) {
+        if (head == null || head.next == null) 
+        {
             return;
         }
 
         // Find the middle of the list
         ListNode slow = head;
         ListNode fast = head;
-        while (fast.next != null && fast.next.next != null) {
+        while (fast.next != null && fast.next.next != null) 
+        {
             slow = slow.next;
             fast = fast.next.next;
         }
@@ -31,10 +33,12 @@ public class Solution {
         MergeLists(head, secondHalf);
     }
 
-    private ListNode ReverseList(ListNode head) {
+    private ListNode ReverseList(ListNode head) 
+    {
         ListNode prev = null;
         ListNode curr = head;
-        while (curr != null) {
+        while (curr != null) 
+        {
             ListNode nextNode = curr.next;
             curr.next = prev;
             prev = curr;
@@ -43,8 +47,10 @@ public class Solution {
         return prev;
     }
 
-    private void MergeLists(ListNode list1, ListNode list2) {
-        while (list2 != null) {
+    private void MergeLists(ListNode list1, ListNode list2) 
+    {
+        while (list2 != null) 
+        {
             ListNode list1Next = list1.next;
             ListNode list2Next = list2.next;
 
